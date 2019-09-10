@@ -7,7 +7,7 @@ array_num = 0
 dpid = "123917682137064"
 
 # Create csn file
-csv_open = csv.writer(open("no_attack_udp_none_zodiac.csv","wb+"))
+csv_open = csv.writer(open("attack_udp2_zodiac.csv","wb+"))
 csv_open.writerow(["packet_count",
                     "byte_count",
                     "flow_count",
@@ -34,7 +34,7 @@ counter = 0
 t0 = time.time()
 t1 = time.time()
 
-while counter < 19:
+while counter < 120:
     print(counter)
 
     t0 = time.time()
@@ -74,7 +74,7 @@ while counter < 19:
 
             # Wait 10 seconds for until next write
             t1 = time.time()
-            time.sleep(2)
+            time.sleep(10)
 
         else:
             # Increment no_data
