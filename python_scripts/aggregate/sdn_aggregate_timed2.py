@@ -1,3 +1,5 @@
+# Handles negative values and huge overflows
+
 import requests
 import csv
 import json
@@ -7,7 +9,7 @@ array_num = 0
 dpid = "123917682137064"
 
 # Create csn file
-csv_open = csv.writer(open("attack_udp2_zodiac.csv","wb+"))
+csv_open = csv.writer(open("set2_no_attack_udp_none_zodiac.csv","wb+"))
 csv_open.writerow(["packet_count",
                     "byte_count",
                     "flow_count",
@@ -60,23 +62,34 @@ while counter < 120:
             diff_packet_count = latest_packet_count - penultimate_packet_count
             diff_byte_count  = latest_byte_count - penultimate_byte_count
 
+            if diff_packet_count < 0:
+                print("packet count wrapped around")
+                t1 = time.time()
+                time.sleep(10)
+            elif diff_byte_count < 0:
+                print("byte count wrapped around")
+                t1 = time.time()
+                time.sleep(10)
+            elif diff_byte_count > 1000000000000:
+                print("byte count unstable")
+                t1 = time.time()
+                time.sleep(10)
+            else:
+                csv_open.writerow([diff_packet_count,
+                                    diff_byte_count,
+                                    data[dpid][array_num]["flow_count"],
+                                    t0-t1,
+                                    no_data])
 
+                # Increment loop counter
+                counter += 1
 
-            csv_open.writerow([diff_packet_count,
-                                diff_byte_count,
-                                data[dpid][array_num]["flow_count"],
-                                t0-t1,
-                                no_data])
+                # Reset no_data variable
+                no_data = 0
 
-            # Increment loop counter
-            counter += 1
-
-            # Reset no_data variable
-            no_data = 0
-
-            # Wait 10 seconds for until next write
-            t1 = time.time()
-            time.sleep(10)
+                # Wait 10 seconds for until next write
+                t1 = time.time()
+                time.sleep(10)
 
         else:
             # Increment no_data
