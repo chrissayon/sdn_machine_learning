@@ -7,7 +7,7 @@ array_num = 0
 dpid = "123917682137064"
 
 # Create csn file
-csv_open = csv.writer(open("zodiac_30Mbps_tcp.csv","w"))
+csv_open = csv.writer(open("zodiac_80Mbps_tcp.csv","w"))
 csv_open.writerow(["port_no",
                     "rx_packets",
                     "tx_packets",
