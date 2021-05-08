@@ -10,7 +10,7 @@ debtcollector==1.21.0
 demjson==2.2.4
 dnspython==1.16.0
 enum34==1.1.6
-eventlet==0.25.0
+eventlet==0.31.0
 funcsigs==1.0.2
 greenlet==0.4.15
 idna==2.8
